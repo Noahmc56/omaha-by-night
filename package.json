@@ -24,7 +24,9 @@
     "wiki:build": "node scripts/player-wiki.mjs build",
     "wiki:preview": "node scripts/player-wiki.mjs preview",
     "wiki:audit": "node scripts/player-wiki.mjs audit",
-    "wiki:test": "node --test scripts/player-wiki.test.mjs"
+    "wiki:test": "node --test scripts/player-wiki.test.mjs",
+    "wiki:publish": "node scripts/publish-wiki.mjs",
+    "wiki:publish:check": "node scripts/publish-wiki.mjs --dry-run"
   },
   "engines": {
     "npm": ">=10.9.2",

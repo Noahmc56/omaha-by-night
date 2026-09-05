@@ -98,10 +98,11 @@ async function audit(source) {
   const candidates = (await run('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], true)).toString().split('\0').filter(Boolean)
   for (const name of candidates) {
     if (name.split('/').some(part => ['storyteller', '.obsidian', '.local-wiki'].includes(part.toLowerCase())) || name === 'wiki.local.json') throw new Error(`Forbidden Git candidate: ${name}`)
-    if (name.startsWith('content/') && name !== 'content/.gitkeep' && !expected.has(name.slice(8))) throw new Error(`Unexpected content candidate: ${name}`)
+    // Git's index can still contain a previously published file deleted by the latest import.
+    if (name.startsWith('content/') && name !== 'content/.gitkeep' && !expected.has(name.slice(8)) && await fs.stat(path.join(project, name)).then(() => true, error => { if (error.code === 'ENOENT') return false; throw error })) throw new Error(`Unexpected content candidate: ${name}`)
   }
   // Already-staged campaign blobs must also match the authorized snapshot.
-  const staged = (await run('git', ['ls-files', '-z', '--', 'content'], true)).toString().split('\0').filter(Boolean)
+  const staged = (await run('git', ['diff', '--cached', '--name-only', '--diff-filter=ACMR', '-z', '--', 'content'], true)).toString().split('\0').filter(Boolean)
   for (const name of staged) {
     const blob = await run('git', ['show', `:${name}`], true)
     if (name === 'content/.gitkeep' && blob.length === 0) continue

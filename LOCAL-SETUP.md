@@ -1,5 +1,15 @@
 # Omaha by Night Wiki — local player pipeline
 
+## One-click publishing
+
+Save your Obsidian edits, then double-click **Publish Wiki.bat** in this project folder. Leave the window open until it reports **PUBLISHED SUCCESSFULLY**. It imports Player Wiki, audits the complete file set and exact Git snapshot, checks dependency advisories, builds an isolated snapshot, rechecks privacy, commits, pushes, and automatically starts and watches GitHub Pages. There is no manual Actions step. Avoid editing while publishing; detected changes abort before uploading.
+
+Double-click **Check Publishing.bat** to run the same local gates without committing, pushing, or deploying. A local check/build failure uploads nothing. A network/deployment failure after a successful push is reported distinctly: the reviewed source is already public, and you can rerun to retry deployment. Nothing is force-pushed or automatically merged. Unrelated staged work and differing remote history stop the script instead of being overwritten.
+
+Publish uses the portable `.local-wiki/tools/github-cli/bin/gh.exe` directly; no system `gh` command is needed. If authentication is missing, its window guides you through GitHub's browser/device login, waits for completion, and continues automatically. A cancelled or failed login stops publication. Check needs no GitHub CLI or login and skips remote fetch/freshness checks; it still runs all local privacy/build checks and the npm advisory query (which requires internet access). Both launchers configure their own Node path. A crashed process may leave `.local-wiki/publish.lock`; remove that file only after confirming no publishing window is still running.
+
+Launching Publish is your instruction to make all eligible files currently inside Player Wiki public, including note frontmatter and attachments. The script prints its audit and destination before pushing. It never reads the sibling Storyteller folder. Privacy checks establish source provenance; they cannot identify a secret deliberately typed inside Player Wiki.
+
 Quartz 5.0.0 reads only the separate project's `content` snapshot. The importer reads only the configured **Player Wiki** subtree. It never scans or imports the sibling **Storyteller** folder and never writes into the Obsidian vault.
 
 ## Preview

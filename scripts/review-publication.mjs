@@ -20,6 +20,7 @@ if (!staged) await fs.writeFile('player-content.manifest.json', JSON.stringify(m
 
 const additions = new Set(['LOCAL-SETUP.md', 'PUBLICATION-PLAN.md', 'DEPENDENCY-REVIEW.md', 'Preview Wiki.cmd', 'quartz.config.yaml', 'player-content.manifest.json', '.github/workflows/pages.yml', 'scripts/player-wiki.mjs', 'scripts/player-wiki.test.mjs', 'scripts/wiki-integration.mjs', 'scripts/review-publication.mjs', 'scripts/check-published-content.mjs', 'scripts/pages-url.mjs'])
 additions.add('scripts/check-dependencies.mjs')
+for (const name of ['scripts/publish-wiki.mjs', 'scripts/publish-wiki.test.mjs', 'Publish Wiki.bat', 'Check Publishing.bat']) additions.add(name)
 const modifications = new Set(['.gitignore', '.gitattributes', 'package.json', 'package-lock.json'])
 const originals = new Set(paths(git(['ls-tree', '-r', '--name-only', '-z', baseline])))
 const changed = paths(git(['diff', ...(staged ? ['--cached'] : []), '--name-only', '-z', baseline]))

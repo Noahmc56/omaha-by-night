@@ -1,5 +1,7 @@
 # GitHub Pages preparation — not published
 
+**Current status:** The site is live at https://noahmc56.github.io/omaha-by-night/. For routine updates use **Publish Wiki.bat**, which performs the pre-upload checks below automatically and dispatches Pages after a successful push. The initial-setup instructions below are retained for reference; repository creation and authentication have already been completed.
+
 The prepared workflow is `.github/workflows/pages.yml`. It runs only by manual dispatch and only when the repository variable `PUBLISH_APPROVED` is `true`. No repository has been created, connected, or uploaded. Existing upstream maintenance/deployment workflows were moved to the Git-ignored local archive rather than retained as active workflows for this wiki.
 
 ## What a future public repository would contain
