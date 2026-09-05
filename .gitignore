@@ -12,3 +12,9 @@ replit.nix
 .quartz/
 quartz/cli/tui/dist/
 .turbo/
+
+# Local-only vault location, import staging, logs and provenance manifest
+wiki.local.json
+.local-wiki/
+Storyteller/
+**/Storyteller/

@@ -1,0 +1,53 @@
+name: Publish reviewed player wiki
+
+# Manual-only and locked until the owner approves the first upload/deployment.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: vars.PUBLISH_APPROVED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Check dependency advisories
+        run: node scripts/check-dependencies.mjs
+      - name: Verify reviewed content snapshot
+        run: node scripts/check-published-content.mjs
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Set deployment URL without changing the local preview URL
+        env:
+          PAGES_BASE_URL: ${{ steps.pages.outputs.base_url }}
+        run: node scripts/pages-url.mjs
+      - name: Build reviewed snapshot (never import a vault in CI)
+        run: node quartz/bootstrap-cli.mjs build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

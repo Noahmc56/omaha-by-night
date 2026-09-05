@@ -1,1 +1,4 @@
 * text=auto eol=lf
+
+# Preserve approved source bytes in the Git index, including attachment bytes.
+content/** -text
