@@ -1,0 +1,22 @@
+properties:
+  file.name:
+    displayName: Name
+  note.clan:
+    displayName: Clan
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - Type == "NPC"
+        - file.inFolder("Player Wiki")
+    order:
+      - file.name
+      - Position
+      - Clan
+      - Sect
+    sort:
+      - property: file.name
+        direction: DESC
+      - property: Generation
+        direction: DESC
