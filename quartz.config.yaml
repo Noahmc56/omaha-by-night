@@ -16,30 +16,30 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
+      header: Cinzel
       body: Source Sans Pro
       code: IBM Plex Mono
     colors:
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
-        gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#fff23688"
+        light: "#191b20"
+        lightgray: "#353c47"
+        gray: "#a0a9b5"
+        darkgray: "#f0ece8"
+        dark: "#f18c70"
+        secondary: "#f18c70"
+        tertiary: "#a8bdce"
+        highlight: rgba(187, 64, 45, 0.14)
+        textHighlight: "#743a36"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#b3aa0288"
+        light: "#101115"
+        lightgray: "#303641"
+        gray: "#949eac"
+        darkgray: "#eee9e4"
+        dark: "#e87d61"
+        secondary: "#ee896e"
+        tertiary: "#9db4c8"
+        highlight: rgba(187, 64, 45, 0.14)
+        textHighlight: "#713733"
 plugins:
   - source: "@quartz-community/created-modified-date"
     enabled: true
@@ -53,7 +53,7 @@ plugins:
     enabled: true
     options:
       theme:
-        light: github-light
+        light: github-dark
         dark: github-dark
       keepBackground: false
     order: 20
@@ -109,6 +109,11 @@ plugins:
     order: 92
   - source: "@quartz-community/quartz-fonts"
     enabled: true
+    options:
+      header: Cinzel
+      title: Cinzel
+      body: Source Sans Pro
+      code: IBM Plex Mono
   - source: "@quartz-themes/core"
     enabled: false
     options:
